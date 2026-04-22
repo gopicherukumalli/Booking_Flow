@@ -335,6 +335,7 @@ public class flyaDealModule extends passengersDetails {
 				
 				//Cancel For Any Reason
 				noThanksOptions(driver);
+				noThanksOptions(driver);
 				
 				/*WebDriverWait shortwait = new WebDriverWait(driver, 5);
 		        try {
