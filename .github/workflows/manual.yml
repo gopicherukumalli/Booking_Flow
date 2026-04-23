@@ -1,10 +1,13 @@
 name: Book_Flow
 
 on:
-  workflow_dispatch:   # manual trigger only
+  workflow_dispatch:    # allow manual trigger
+  repository_dispatch:  # allow self re-trigger
+    types: [rerun_filter_flow]
+
 
 permissions:
-  contents: read       # write not needed anymore
+  contents: write       # ✅ required for API to trigger new workflow runs
 
 jobs:
   runtests:
@@ -49,16 +52,16 @@ jobs:
         run: sudo apt-get install -y maven
 
       - name: Retry loop for Maven tests
+        id: retry
         run: |
           for i in {1..2}; do
             echo "Attempt $i"
             mvn test && break
             if [ $i -lt 2 ]; then
-              echo "Test failed. Retrying in 2 minutes..."
+              echo "Test failed. Retrying..."
               sleep 120
             else
               echo "Test failed after $i attempts."
               exit 1
             fi
           done
-```
