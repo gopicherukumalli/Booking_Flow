@@ -335,6 +335,7 @@ public class flyaDealModule extends passengersDetails {
 				
 				//Cancel For Any Reason
 				noThanksOptions(driver);
+		                Thread.sleep(1000);
 				noThanksOptions(driver);
 				
 				/*WebDriverWait shortwait = new WebDriverWait(driver, 5);
@@ -405,7 +406,8 @@ public class flyaDealModule extends passengersDetails {
 		            Thread.sleep(1000);
 
 		            // Find all "No Thanks" radio buttons inside the frame
-		            List<WebElement> noThanksOptions = driver.findElements(By.cssSelector("input[type='radio'][name='coverage'][id='none']"));
+		            List<WebElement> noThanksOptions = shortwait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+		                    By.xpath("//span[contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'no thanks')]")));
 
 		            for (WebElement radio : noThanksOptions) {
 		                if (radio.isDisplayed() && radio.isEnabled()) {
